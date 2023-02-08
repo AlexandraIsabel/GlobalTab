@@ -2,16 +2,18 @@ package com.aang23.globaltab;
 
 import java.util.Timer;
 
-import com.velocitypowered.api.command.Command;
+import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.command.CommandSource;
-import net.kyori.text.TextComponent;
-import net.kyori.text.format.TextColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-public class CommandGlobalTab implements Command {
+public class CommandGlobalTab implements SimpleCommand {
 
     @Override
-    public void execute(@NonNull CommandSource source, String[] args) {
+    public void execute(Invocation invocation) {
+        String[] args = invocation.arguments();
+        CommandSource source = invocation.source();
         if (args.length > 0) {
             if (args[0].equals("restart")) {
                 TimerHandler.stop = true;
@@ -21,13 +23,13 @@ public class CommandGlobalTab implements Command {
                         Integer.parseInt((String) ConfigManager.config.get("updatedelay")) * 1000,
                         Integer.parseInt((String) ConfigManager.config.get("updatedelay")) * 1000);
 
-                source.sendMessage(TextComponent.of("Restarted the tab !").color(TextColor.GREEN));
+                source.sendMessage(Component.text("Restarted the tab !").color(NamedTextColor.GREEN));
             } else if (args[0].equals("config")) {
                 ConfigManager.setupConfig();
 
-                source.sendMessage(TextComponent.of("Reloaded the configuration file !").color(TextColor.GREEN));
+                source.sendMessage(Component.text("Reloaded the configuration file !").color(NamedTextColor.GREEN));
             }
         } else
-            source.sendMessage(TextComponent.of("Usage : /globaltab restart/config").color(TextColor.RED));
+            source.sendMessage(Component.text("Usage : /globaltab restart/config").color(NamedTextColor.RED));
     }
 }

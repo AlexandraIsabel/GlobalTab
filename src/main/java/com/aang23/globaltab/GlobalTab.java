@@ -54,7 +54,7 @@ public class GlobalTab {
 
         ConfigManager.setupConfig();
 
-        commandManager.register(new CommandGlobalTab(), "globaltab");
+        commandManager.register("globaltab", new CommandGlobalTab());
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerHandler(),
@@ -123,7 +123,7 @@ public class GlobalTab {
             return;
         } else {
             TabListEntry currentEntr = cache.get(inUUID);
-            if (!currentEntr.getDisplayName().equals(entry.getDisplayName())) {
+            if (!currentEntr.getDisplayNameComponent().equals(entry.getDisplayNameComponent())) {
                 list.removeEntry(inUUID);
                 list.addEntry(entry);
                 toKeep.add(inUUID);
