@@ -15,8 +15,8 @@ import com.velocitypowered.api.proxy.server.ServerInfo;
 import com.velocitypowered.api.proxy.server.ServerPing;
 
 import org.slf4j.Logger;
-import me.lucko.luckperms.LuckPerms;
-import me.lucko.luckperms.api.LuckPermsApi;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
 import com.velocitypowered.api.command.CommandManager;
 import com.velocitypowered.api.event.EventManager;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
@@ -39,7 +39,7 @@ public class GlobalTab {
     public static ProxyServer server;
     public static Logger logger;
     public static Path configspath;
-    public static LuckPermsApi luckpermsapi;
+    public static LuckPerms luckpermsapi;
 
     public static Map<String, Double> playerBalances = new HashMap<String, Double>();
 
@@ -64,8 +64,8 @@ public class GlobalTab {
 
     @Subscribe
     public void onInitialization(ProxyInitializeEvent event) {
-        if (GlobalTab.server.getPluginManager().isLoaded("luckperms"))
-            luckpermsapi = LuckPerms.getApi();
+        if (server.getPluginManager().isLoaded("luckperms"))
+            luckpermsapi = LuckPermsProvider.get();
     }
 
     @Subscribe

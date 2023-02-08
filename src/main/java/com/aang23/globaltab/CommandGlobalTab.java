@@ -32,4 +32,9 @@ public class CommandGlobalTab implements SimpleCommand {
         } else
             source.sendMessage(Component.text("Usage : /globaltab restart/config").color(NamedTextColor.RED));
     }
+    @Override
+    public boolean hasPermission(Invocation invocation) {
+        return invocation.source().hasPermission("globaltab.admin");
+    }
+
 }
